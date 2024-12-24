@@ -1,0 +1,17 @@
+#container {
+    width: 960px;
+    height: 960px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.grid-square {
+    /* Calculate width and height to fit 16 squares perfectly */
+    width: calc(960px / 16);
+    height: calc(960px / 16);
+    background-color: white;
+    border: 1px solid #ddd;
+    /* Use box-sizing to include border in width/height calculation */
+    box-sizing: border-box;
+} 
