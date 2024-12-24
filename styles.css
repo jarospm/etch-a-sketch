@@ -14,4 +14,9 @@
     border: 1px solid #ddd;
     /* Use box-sizing to include border in width/height calculation */
     box-sizing: border-box;
+    transition: background-color 0.2s ease; /* Smooth color transition */
+}
+
+.grid-square.colored {
+    background-color: #333; /* Dark gray color when hovered */
 } 
