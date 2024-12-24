@@ -16,14 +16,43 @@ function createGrid(size = 16) {
         square.style.width = `${squareSize}px`;
         square.style.height = `${squareSize}px`;
         
+        // Initialize interaction count for progressive darkening
+        square.dataset.interactions = '0';
+        
         // Listen for when mouse enters the square
         square.addEventListener('mouseenter', function(event) {
             const hoveredSquare = event.target;
-            hoveredSquare.style.backgroundColor = 'black';
+            colorSquare(hoveredSquare);
         });
         
         container.appendChild(square);
     }
+}
+
+function getRandomRGB() {
+    return {
+        r: Math.floor(Math.random() * 256),
+        g: Math.floor(Math.random() * 256),
+        b: Math.floor(Math.random() * 256)
+    };
+}
+
+function colorSquare(square) {
+    // Get current interaction count
+    let interactions = parseInt(square.dataset.interactions) || 0;
+    interactions++;
+    square.dataset.interactions = interactions;
+    
+    // Generate random RGB values
+    const { r, g, b } = getRandomRGB();
+    
+    // Calculate darkness percentage (10% darker per interaction)
+    const darkenPercent = interactions * 0.1;
+    
+    // Apply color with darkening effect
+    square.style.backgroundColor = `rgb(${r * (1 - darkenPercent)}, 
+                                      ${g * (1 - darkenPercent)}, 
+                                      ${b * (1 - darkenPercent)})`;
 }
 
 function changeGridSize() {
