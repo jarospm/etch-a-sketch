@@ -7,6 +7,15 @@ function createGrid(size = 16) {
     // Calculate square size based on container size
     const squareSize = 960 / size;
     
+    // Track if mouse button is being held down
+    let isDrawing = false;
+    
+    // Add mouse down and up listeners to the container
+    container.addEventListener('mousedown', () => isDrawing = true);
+    container.addEventListener('mouseup', () => isDrawing = false);
+    // Stop drawing if mouse leaves the container
+    container.addEventListener('mouseleave', () => isDrawing = false);
+    
     // Create size x size squares
     for (let i = 0; i < size * size; i++) {
         const square = document.createElement('div');
@@ -19,14 +28,23 @@ function createGrid(size = 16) {
         // Initialize interaction count for progressive darkening
         square.dataset.interactions = '0';
         
-        // Listen for when mouse enters the square
+        // Color square when mouse enters while button is held
         square.addEventListener('mouseenter', function(event) {
-            const hoveredSquare = event.target;
-            colorSquare(hoveredSquare);
+            if (isDrawing) {
+                colorSquare(event.target);
+            }
+        });
+        
+        // Handle initial click on a square
+        square.addEventListener('mousedown', function(event) {
+            colorSquare(event.target);
         });
         
         container.appendChild(square);
     }
+    
+    // Prevent drag selection while drawing
+    container.addEventListener('dragstart', (e) => e.preventDefault());
 }
 
 function getRandomRGB() {
