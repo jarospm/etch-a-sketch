@@ -17,8 +17,8 @@ button {
 }
 
 #container {
-    width: 960px;
-    height: 960px;
+    width: min(960px, 90vw);
+    height: min(960px, 90vw);
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
@@ -29,5 +29,12 @@ button {
     border: 1px solid #ddd;
     box-sizing: border-box;
     transition: background-color 0.2s ease;
-    /* cursor: pointer; */
+    cursor: pointer;
+}
+
+@media (max-width: 400px) {
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
